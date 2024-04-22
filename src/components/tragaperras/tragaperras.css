@@ -1,0 +1,30 @@
+/* Estilos generales para la tarjeta */
+img {
+  min-width: 100%;
+}
+.card {
+  width: 45%; /* Ancho de la tarjeta */
+  border-radius: 10px; /* Borde redondeado */
+  overflow: hidden; /* Para asegurarse de que la imagen no sobresalga */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilos para la imagen dentro de la tarjeta */
+.card img {
+  width: 25%; /* Para que la imagen ocupe todo el ancho de la tarjeta */
+  height: auto; /* Para mantener la relación de aspecto */
+  display: block;
+  padding: 20px; /* Para asegurarse de que la imagen no tenga espacio extra debajo */
+}
+
+/* Estilos para el contenedor de la tarjeta */
+.card-container {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente la tarjeta */
+  align-items: center; /* Centrar verticalmente la tarjeta */
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+}

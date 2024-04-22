@@ -1,0 +1,31 @@
+/* Estilos generales del botón */
+.traga-perras-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+/* Estilos cuando se pasa el cursor sobre el botón */
+.traga-perras-button:hover {
+  background-color: #ff402c;
+}
+
+/* Estilos cuando se presiona el botón */
+.traga-perras-button:active {
+  background-color: #e63d24;
+}
+
+/* Estilos cuando el botón está deshabilitado */
+.traga-perras-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

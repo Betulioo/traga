@@ -7,7 +7,10 @@ function App() {
 
   return (
     <>
-      <Tragaperras fnWinner={setIsWinner} isWinners={isWinner}></Tragaperras>
+      <Tragaperras
+        fnWinner={setIsWinner}
+        currentWinner={isWinner}
+      ></Tragaperras>
     </>
   );
 }

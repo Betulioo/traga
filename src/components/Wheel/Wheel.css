@@ -1,0 +1,66 @@
+img {
+  max-width: 100%;
+}
+.card {
+  /* width: 45%; */
+  border-radius: 10px; /* Borde redondeado */
+  overflow: hidden; /* Para asegurarse de que la imagen no sobresalga */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  background-color: white;
+}
+
+/* Estilos para la imagen dentro de la tarjeta */
+.card img {
+  height: auto; /* Para mantener la relación de aspecto */
+  display: block;
+  /* width: 100%; */
+}
+
+/* Estilos para el contenedor de la tarjeta */
+.card-container {
+  display: flex;
+  border: 7px solid black;
+}
+
+.container {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  gap: 1px;
+}
+.card___div {
+  width: 100px;
+  height: 183px;
+}
+.card___div--winner {
+  display: flex;
+  width: 100px;
+  height: 183px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card___div--winner img {
+  width: 100%; /* Imagen ocupa todo el espacio */
+  height: auto; /* Altura automática */
+}
+
+.card___div--winner::before {
+  content: ""; /* Contenido pseudo-elemento */
+  position: absolute; /* Posición absoluta */
+  top: 0; /* Pegado al borde superior */
+  left: 0; /* Pegado al borde izquierdo */
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  background-color: rgba(
+    255,
+    255,
+    0,
+    0.244
+  ); /* Color de fondo semi-transparente */
+  z-index: 1; /* Por encima de la imagen */
+}

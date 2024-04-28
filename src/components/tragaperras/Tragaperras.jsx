@@ -7,100 +7,95 @@ import "./reset.css";
 import "./tragaperras.css";
 import { useState } from "react";
 import BotonStart from "../BotonStart/BotonStart";
-export default function Tragaperras({ fnWinner, isWinners }) {
+import Wheel from "../Wheel/Wheel";
+export default function Tragaperras({ fnWinner, currentWinner }) {
+  const pictures1 = [bm, hongo, patricio];
+  const [currentPictures, setCurrentPictures] = useState(pictures1);
   const getIndex = (arr) => {
     // console.log(Math.floor(Math.random() * arr.length));
     return Math.floor(Math.random() * arr.length);
   };
-  const pictures1 = [pato, bm, hongo, patricio];
 
-  const [currentPictures, setCurrentPictures] = useState([
-    pictures1[getIndex(pictures1)],
-    pictures1[getIndex(pictures1)],
-    pictures1[getIndex(pictures1)],
-    pictures1[getIndex(pictures1)],
-  ]);
+  const getRandomWheel = () => {
+    return [
+      currentPictures[getIndex(currentPictures)],
+      currentPictures[getIndex(currentPictures)],
+      currentPictures[getIndex(currentPictures)],
+      currentPictures[getIndex(currentPictures)],
+    ];
+  };
 
+  console.log(currentWinner);
+
+  const [currentWheel1, setCurrentWheels1] = useState(getRandomWheel());
+  const [currentWheel2, setCurrentWheels2] = useState(getRandomWheel());
+  const [currentWheel3, setCurrentWheels3] = useState(getRandomWheel());
   const [isPlaying, setIsPlaying] = useState(false);
-  let carril1 = [
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-  ];
-  let carril2 = [
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-  ];
-  let carril3 = [
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-    currentPictures[getIndex(currentPictures)],
-  ];
 
-  const changing = () => {
-    const interval = setInterval(() => {
-      setCurrentPictures([
-        pictures1[getIndex(pictures1)],
-        pictures1[getIndex(pictures1)],
-        pictures1[getIndex(pictures1)],
-        pictures1[getIndex(pictures1)],
-      ]);
-    }, 400);
+  const spinWheel = (setCurrentWheel) => {
+    const intervalWheelOne = setInterval(() => {
+      setCurrentWheel(getRandomWheel());
+    }, 200);
 
     setTimeout(() => {
-      clearInterval(interval);
+      clearInterval(intervalWheelOne);
       setIsPlaying(false);
-    }, 3000);
+    }, 800);
   };
 
   useEffect(() => {
-    if (isPlaying === true) {
-      changing();
-    } else if (isPlaying === false) {
+    if (isPlaying) {
+      spinWheel(setCurrentWheels1);
+      setTimeout(() => {
+        spinWheel(setCurrentWheels2);
+      }, 900);
+      setTimeout(() => {
+        spinWheel(setCurrentWheels3);
+      }, 1800);
+    } else {
+      setTimeout(() => {
+        console.log("cheking winner");
+        checkWinner();
+      }, 2000);
       checkWinner();
     }
   }, [isPlaying]);
 
   const checkWinner = () => {
-    if (carril1[2] === carril2[2] && carril2[2] === carril3[2]) {
+    const wheelOneImg$$ = document.querySelectorAll(
+      '[data-selector="wheel1"] img'
+    );
+    const wheelTwoImg$$ = document.querySelectorAll(
+      '[data-selector="wheel2"] img'
+    );
+    const wheelThreeImg$$ = document.querySelectorAll(
+      '[data-selector="wheel3"] img'
+    );
+    if (
+      wheelOneImg$$[2].currentSrc === wheelTwoImg$$[2].currentSrc &&
+      wheelTwoImg$$[2].currentSrc === wheelThreeImg$$[2].currentSrc
+    ) {
       fnWinner(true);
-      console.log("hola");
+      console.log("Winner winner");
     }
   };
+
   return (
     <>
-      <div className="container">
-        <div className="card-container">
-          <div className="card">
-            {carril1.map((element, i) => (
-              <img key={`${i}`} className={`${i}`} src={`${element}`} />
-            ))}
-          </div>
+      {/* {matchCard(1, "hola")} */}
+
+      <div className="board">
+        <div className="container">
+          <Wheel currentWheel1={currentWheel1} wheel={"1"}></Wheel>
+          <Wheel currentWheel1={currentWheel2} wheel={"2"}></Wheel>
+          <Wheel currentWheel1={currentWheel3} wheel={"3"}></Wheel>
         </div>
-        <div className="card-container">
-          <div className="card">
-            {carril2.map((element, i) => (
-              <img key={`${i}`} className={`${i}`} src={`${element}`} />
-            ))}
-          </div>
-        </div>
-        <div className="card-container">
-          <div className="card">
-            {carril3.map((element, i) => (
-              <img key={`${i}`} className={`${i}`} src={`${element}`} />
-            ))}
-          </div>
-        </div>
+        <BotonStart
+          fnStart={setIsPlaying}
+          fnCheckWinner={fnWinner}
+          fnWinning={currentWinner}
+        />
       </div>
-      <BotonStart
-        fnStart={setIsPlaying}
-        fnCheckWinner={fnWinner}
-        fnWinning={isWinners}
-      />
     </>
   );
 }
